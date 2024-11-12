@@ -25,3 +25,16 @@ plugins {
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
+plugins {
+    id("org.sonarqube") version "5.1.0.4882"
+    // alte plugin-uri
+}
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "MarsPhoto")
+        property("sonar.projectName", "MarsPhoto")
+        property("sonar.host.url", System.getenv("SONAR_HOST_URL"))
+        property("sonar.login", System.getenv("SONAR_TOKEN"))
+    }
+}
