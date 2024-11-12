@@ -1,40 +1,19 @@
-/*
- * Copyright (C) 2023 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the ""License"");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an ""AS IS"" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License."
- */
-
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 plugins {
     id("com.android.application") version "8.0.2" apply false
     id("com.android.library") version "8.0.2" apply false
     id("org.jetbrains.kotlin.android") version "1.8.21" apply false
+    id("org.sonarqube") version "5.1.0.4882"
 }
 
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
-}
-plugins {
-    id("org.sonarqube") version "5.1.0.4882"
-    // alte plugin-uri
 }
 
 sonarqube {
     properties {
         property("sonar.projectKey", "MarsPhoto")
         property("sonar.projectName", "MarsPhoto")
-        property("sonar.host.url", System.getenv("SONAR_HOST_URL"))
-        property("sonar.login", System.getenv("SONAR_TOKEN"))
+        property("sonar.host.url", System.getenv("SONAR_HOST_URL") ?: "http://192.168.0.100:9000")
+        property("sonar.login", System.getenv("SONAR_TOKEN") ?: "your_sonar_token_here")
     }
 }
